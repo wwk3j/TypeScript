@@ -1,0 +1,27 @@
+=== tests/cases/compiler/constraintsAsInferenceSites.ts ===
+interface Ctor<T> {
+>Ctor : Symbol(Ctor, Decl(constraintsAsInferenceSites.ts, 0, 0))
+>T : Symbol(T, Decl(constraintsAsInferenceSites.ts, 0, 15))
+
+    new(): T;
+>T : Symbol(T, Decl(constraintsAsInferenceSites.ts, 0, 15))
+}
+declare function create<U, C extends Ctor<U>>(ctor: C): U;
+>create : Symbol(create, Decl(constraintsAsInferenceSites.ts, 2, 1))
+>U : Symbol(U, Decl(constraintsAsInferenceSites.ts, 3, 24))
+>C : Symbol(C, Decl(constraintsAsInferenceSites.ts, 3, 26))
+>Ctor : Symbol(Ctor, Decl(constraintsAsInferenceSites.ts, 0, 0))
+>U : Symbol(U, Decl(constraintsAsInferenceSites.ts, 3, 24))
+>ctor : Symbol(ctor, Decl(constraintsAsInferenceSites.ts, 3, 46))
+>C : Symbol(C, Decl(constraintsAsInferenceSites.ts, 3, 26))
+>U : Symbol(U, Decl(constraintsAsInferenceSites.ts, 3, 24))
+
+class A { a }
+>A : Symbol(A, Decl(constraintsAsInferenceSites.ts, 3, 58))
+>a : Symbol(A.a, Decl(constraintsAsInferenceSites.ts, 4, 9))
+
+let a = create(A); // should be A
+>a : Symbol(a, Decl(constraintsAsInferenceSites.ts, 5, 3))
+>create : Symbol(create, Decl(constraintsAsInferenceSites.ts, 2, 1))
+>A : Symbol(A, Decl(constraintsAsInferenceSites.ts, 3, 58))
+

@@ -1,0 +1,28 @@
+=== tests/cases/compiler/constraintsAsInferenceSites.ts ===
+interface Ctor<T> {
+>Ctor : Ctor<T>
+>T : T
+
+    new(): T;
+>T : T
+}
+declare function create<U, C extends Ctor<U>>(ctor: C): U;
+>create : <U, C extends Ctor<U>>(ctor: C) => U
+>U : U
+>C : C
+>Ctor : Ctor<T>
+>U : U
+>ctor : C
+>C : C
+>U : U
+
+class A { a }
+>A : A
+>a : any
+
+let a = create(A); // should be A
+>a : A
+>create(A) : A
+>create : <U, C extends Ctor<U>>(ctor: C) => U
+>A : typeof A
+
