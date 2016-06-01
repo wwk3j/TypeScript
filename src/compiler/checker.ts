@@ -10436,6 +10436,14 @@ namespace ts {
                 inferTypes(context, thisArgumentType, signature.thisType);
             }
 
+            for (let i = 0; i < typeParameters.length; i++) {
+                if (typeParameters[i].constraint && typeParameters[i].constraint.symbol && typeParameters[i].symbol && typeParameters[i].constraint.symbol.name === "Lengthed" && typeParameters[i].symbol.name === "C") {
+                    // hmf. Might need some instantiation around here somewhere
+                    inferTypes(context, typeParameters[i].constraint, typeParameters[i]);
+                    // inferTypes(context, typeParameters[i], typeParameters[i].constraint);
+                }
+            }
+
             // We perform two passes over the arguments. In the first pass we infer from all arguments, but use
             // wildcards for all context sensitive function expressions.
             const argCount = getEffectiveArgumentCount(node, args, signature);
@@ -10474,6 +10482,7 @@ namespace ts {
                     }
                 }
             }
+
 
             getInferredTypes(context);
         }
