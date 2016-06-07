@@ -1898,7 +1898,17 @@ namespace ts {
             templateSpans.end = getNodeEnd();
             template.templateSpans = templateSpans;
 
-            return finishNode(template);
+            const node = finishNode(template);
+
+            Debug.assert(rangeContainsRange(node, templateSpans[0]));
+
+            return node;
+        }
+        function rangeContainsRange(r1: TextRange, r2: TextRange): boolean {
+            return startEndContainsRange(r1.pos, r1.end, r2);
+        }
+        function startEndContainsRange(start: number, end: number, range: TextRange): boolean {
+            return start <= range.pos && end >= range.end;
         }
 
         function parseTemplateSpan(): TemplateSpan {
